@@ -8,11 +8,12 @@ using System.IO;
 
 namespace ToDo.LEJ.Repositories
 {
-    public class TodoItemRepository
+    public class TodoItemRepository: ITodoItemRepository
     {
         private SQLiteAsyncConnection connection;
         public event EventHandler<TodoItem> OnItemAdded;
         public event EventHandler<TodoItem> OnItemUpdated;
+        public event EventHandler<TodoItem> OnItemDeleted;
 
         public async Task<List<TodoItem>> GetItems()
         {
@@ -63,6 +64,13 @@ namespace ToDo.LEJ.Repositories
                     Due = DateTime.Now
                 });
             }
+        }
+
+        public async Task DelelteItem(TodoItem item)
+        {
+            await CreateConnection();
+            var repp = await connection.DeleteAsync(item);
+            OnItemDeleted?.Invoke(this, item);
         }
     }
 }

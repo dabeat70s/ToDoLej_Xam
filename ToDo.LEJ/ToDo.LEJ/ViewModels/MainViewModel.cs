@@ -15,6 +15,18 @@ namespace ToDo.LEJ.ViewModels
     public class MainViewModel: ViewModel
     {
         private readonly TodoItemRepository _repos;
+        public MainViewModel(TodoItemRepository repos)
+        {
+            repos.OnItemAdded += (sender, item) =>
+            Items.Add(CreateTodoItemViewModel(item));
+            repos.OnItemUpdated += (sender, item) =>
+            Task.Run(async () => await LoadData());
+            repos.OnItemDeleted += (sender, item) =>
+            Task.Run(async () => await LoadData());
+
+            _repos = repos;
+            _ = Task.Run(async () => await LoadData());
+        }
         public ObservableCollection<TodoItemViewModel> Items { get; set; }
         public ICommand AddItem => new Command(async () =>
         {
@@ -40,19 +52,6 @@ namespace ToDo.LEJ.ViewModels
             await LoadData();
         });
 
-
-        public MainViewModel(TodoItemRepository repos)
-        {
-            repos.OnItemAdded += (sender, item) =>
-            Items.Add(CreateTodoItemViewModel(item));
-            repos.OnItemUpdated += (sender, item) =>
-            Task.Run(async () => await LoadData());
-
-            _repos = repos;
-            _ = Task.Run(async () => await LoadData());
-        }
-
-
         private async Task NavigateToItem(TodoItemViewModel item)
         {
             if (item == null)
@@ -61,7 +60,9 @@ namespace ToDo.LEJ.ViewModels
             }
             var itemView = Resolver.Resolve<ItemView>();
             var vm = itemView.BindingContext as ItemViewModel;
-
+            vm.PageTitle = "Edit todo item";
+            vm.DeleteText = "Delete";
+            vm.ShowDelete = true;
             vm.Item = item.Item;            
             await Navigation.PushAsync(itemView);
         }

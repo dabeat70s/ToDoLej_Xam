@@ -23,5 +23,6 @@ namespace ToDo.LEJ.Views
             ItemsListView.ItemSelected += (s, e) =>
             ItemsListView.SelectedItem = null;
         }
+       
     }
 }

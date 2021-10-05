@@ -1,13 +1,20 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             x:Class="ToDo.LEJ.Views.ItemView"
+             Title="{Binding PageTitle}">
+    <!--<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ToDo.LEJ.Views.ItemView"
-             Title="New todo item">
+             Title="New todo item">-->
 
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Save" Command="{Binding Save}" />
+        <ToolbarItem Text="{Binding DeleteText}" 
+                     Command="{Binding DeleteToDo}"/>
     </ContentPage.ToolbarItems>
+    
     <StackLayout Padding="14">
+        <Button Text="SAVE" Style="{StaticResource SaveButton}" Command="{Binding Save}"></Button>
         <Label Text="Title" />
         <Entry Text="{Binding Item.Title}" />
         <Label Text="Due" />

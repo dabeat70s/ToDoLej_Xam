@@ -14,5 +14,7 @@ namespace ToDo.LEJ.Repositories
         Task AddItem(TodoItem item);
         Task UpdateItem(TodoItem item);
         Task AddOrUpdate(TodoItem item);
+        Task DelelteItem(TodoItem item);
+
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Windows.Input;
@@ -20,5 +21,6 @@ namespace ToDo.LEJ.ViewModels
             Item.Completed = !Item.Completed;
             ItemStatusChanged?.Invoke(this, new EventArgs());
         });
+       
     }
 }
