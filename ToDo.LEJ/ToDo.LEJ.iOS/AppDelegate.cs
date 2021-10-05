@@ -23,7 +23,7 @@ namespace ToDo.LEJ.iOS
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
             global::Xamarin.Forms.Forms.Init();
-            Bootstrapper.Init();
+            Bootstrapper.Init(); //Autofac
             LoadApplication(new App());
 
             return base.FinishedLaunching(app, options);

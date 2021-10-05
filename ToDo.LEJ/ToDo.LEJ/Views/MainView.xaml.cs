@@ -17,7 +17,9 @@ namespace ToDo.LEJ.Views
             InitializeComponent();
             viewModel.Navigation = Navigation;
             BindingContext = viewModel;
+            
 
+            //hack to deselect the selected item (MVVM)
             ItemsListView.ItemSelected += (s, e) =>
             ItemsListView.SelectedItem = null;
         }

@@ -11,7 +11,7 @@ namespace ToDo.LEJ
         {
             InitializeComponent();
 
-            MainPage = new NavigationPage(Resolver.Resolve<MainView>()); //new MainPage();
+            MainPage = new NavigationPage(Resolver.Resolve<MainView>()); //Autofac
         }
 
         protected override void OnStart()

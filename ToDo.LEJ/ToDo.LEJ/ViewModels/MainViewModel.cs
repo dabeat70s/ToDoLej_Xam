@@ -15,6 +15,7 @@ namespace ToDo.LEJ.ViewModels
     public class MainViewModel: ViewModel
     {
         private readonly TodoItemRepository _repos;
+        public ObservableCollection<TodoItemViewModel> Items { get; set; }
         public ICommand AddItem => new Command(async () =>
         {
             var itemView = Resolver.Resolve<ItemView>();
@@ -31,6 +32,26 @@ namespace ToDo.LEJ.ViewModels
                 RaisePropertyChanged(nameof(SelectedItem));
             }
         }
+        public bool ShowAll { get; set; }
+        public string FilterText => ShowAll ? "All" : "Active";
+        public ICommand ToggleFilter => new Command(async () =>
+        {
+            ShowAll = !ShowAll;
+            await LoadData();
+        });
+
+
+        public MainViewModel(TodoItemRepository repos)
+        {
+            repos.OnItemAdded += (sender, item) =>
+            Items.Add(CreateTodoItemViewModel(item));
+            repos.OnItemUpdated += (sender, item) =>
+            Task.Run(async () => await LoadData());
+
+            _repos = repos;
+            _ = Task.Run(async () => await LoadData());
+        }
+
 
         private async Task NavigateToItem(TodoItemViewModel item)
         {
@@ -41,26 +62,17 @@ namespace ToDo.LEJ.ViewModels
             var itemView = Resolver.Resolve<ItemView>();
             var vm = itemView.BindingContext as ItemViewModel;
 
-            vm.Item = item.Item;
+            vm.Item = item.Item;            
             await Navigation.PushAsync(itemView);
         }
-
-        public ObservableCollection<TodoItemViewModel> Items { get; set; }
-
-        public MainViewModel(TodoItemRepository repos)
-        {
-            repos.OnItemAdded += (sender, item) =>
-            Items.Add(CreateTodoItemViewModel(item));
-            repos.OnItemUpdated += (sender, item) =>
-            Task.Run(async () => await LoadData());
-
-            _repos = repos;
-            Task.Run(async () => await LoadData());
-        }
-
+        
         private async Task LoadData()
         {
             var items = await _repos.GetItems();
+            if (!ShowAll)
+            {
+                items = items.Where(x => x.Completed == false).ToList();
+            }
             var itemViewModels = items.Select(i =>
             CreateTodoItemViewModel(i));
             Items = new ObservableCollection<TodoItemViewModel>
@@ -75,6 +87,16 @@ namespace ToDo.LEJ.ViewModels
         }
         private void ItemStatusChanged(object sender, EventArgs e)
         {
+            if (sender is TodoItemViewModel item)
+            {
+                if (!ShowAll && item.Item.Completed)
+                {
+                    Items.Remove(item);
+                }
+                Task.Run(async () => await
+                _repos.UpdateItem(item.Item));
+            }
+
         }
-    }
+        }
 }

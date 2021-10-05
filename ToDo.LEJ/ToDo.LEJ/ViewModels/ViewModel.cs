@@ -8,6 +8,7 @@ namespace ToDo.LEJ.ViewModels
 {
     public abstract class ViewModel : INotifyPropertyChanged
     {
+        #region Fody usage implementation
         public event PropertyChangedEventHandler PropertyChanged;
 
         public void RaisePropertyChanged(params string[] propertyNames)
@@ -17,7 +18,8 @@ namespace ToDo.LEJ.ViewModels
                 PropertyChanged?.Invoke(this, new
                 PropertyChangedEventArgs(propertyName));
             }
-        }
+        } 
+        #endregion
         public INavigation Navigation { get; set; } // should be abstract to work on all platforms
     }
 }

@@ -10,6 +10,7 @@ using Xamarin.Forms;
 
 namespace ToDo.LEJ
 {
+    //responsible to initialize Autofac & add to platforms**
     public abstract class Bootstrapper
     {
         protected ContainerBuilder ContainerBuilder { get; private set; }

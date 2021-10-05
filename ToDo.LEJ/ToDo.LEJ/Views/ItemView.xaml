@@ -16,12 +16,5 @@
             <Switch IsToggled="{Binding Item.Completed}"/>
             <Label Text="Completed" />
         </StackLayout>
-    </StackLayout>
-    <!--<ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
-    </ContentPage.Content>-->
+    </StackLayout>   
 </ContentPage>

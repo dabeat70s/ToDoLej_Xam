@@ -7,6 +7,7 @@ using UIKit;
 
 namespace ToDo.LEJ.iOS
 {
+    //Autofac
     public class Bootstrapper : LEJ.Bootstrapper
     {
         public static void Init()

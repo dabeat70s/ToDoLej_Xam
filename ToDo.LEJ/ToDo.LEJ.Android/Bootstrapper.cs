@@ -11,6 +11,7 @@ using System.Text;
 
 namespace ToDo.LEJ.Droid
 {
+    //Autofac
     public class Bootstrapper : LEJ.Bootstrapper
     {
         public static void Init()

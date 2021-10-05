@@ -19,7 +19,9 @@
             <RowDefinition Height="auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <Button Text="Toggle filter" />
+        <!--<Button Text="Toggle filter" />-->
+        <Button Text="{Binding FilterText, StringFormat='Filter: {0}'}"
+                Command="{Binding ToggleFilter}" />
         <ListView x:Name="ItemsListView"
                   Grid.Row="1"
                   RowHeight="70"
@@ -28,6 +30,10 @@
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
+                        <ViewCell.ContextActions>
+                            <MenuItem Text="{Binding StatusText}"
+                                       Command="{Binding ToggleCompleted}" />
+                        </ViewCell.ContextActions>
                         <Grid Padding="15,10">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="10" />
@@ -54,13 +60,5 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-    </Grid>
-
-    <!--<ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
-    </ContentPage.Content>-->
+    </Grid> 
 </ContentPage>
