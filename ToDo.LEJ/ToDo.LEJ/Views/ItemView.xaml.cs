@@ -17,6 +17,8 @@ namespace ToDo.LEJ.Views
             InitializeComponent();
             viewModel.Navigation = Navigation;
             BindingContext = viewModel;
+          
         }
+      
     }
 }

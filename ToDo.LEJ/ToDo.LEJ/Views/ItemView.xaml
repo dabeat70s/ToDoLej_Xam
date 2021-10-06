@@ -3,14 +3,12 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
              x:Class="ToDo.LEJ.Views.ItemView"
              Title="{Binding PageTitle}">
-    <!--<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="ToDo.LEJ.Views.ItemView"
-             Title="New todo item">-->
 
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="{Binding DeleteText}" 
-                     Command="{Binding DeleteToDo}"/>
+        <ToolbarItem x:Name="DeleteToolBar"                      
+                     Text="{Binding DeleteText}" 
+                     Command="{Binding DeleteToDo}"
+                     />
     </ContentPage.ToolbarItems>
     
     <StackLayout Padding="14">

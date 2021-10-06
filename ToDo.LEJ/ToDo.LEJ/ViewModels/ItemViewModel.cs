@@ -21,6 +21,7 @@ namespace ToDo.LEJ.ViewModels
             _repository = repository;
             Item = new TodoItem() { Due = DateTime.Now.AddDays(1) };
             ShowDelete = false;
+            
         }
         public ICommand Save => new Command(async () =>
         {
@@ -29,10 +30,8 @@ namespace ToDo.LEJ.ViewModels
         });
 
         public ICommand DeleteToDo => new Command(async (arg) =>
-        {
-            //var tt = new Tuple<TodoItem, Object>(Item, arg);
-            //var jsonArg = JsonConvert.SerializeObject(tt);
-            if (ShowDelete)
+        {           
+            if(ShowDelete)
             {
                 var resp = await App.Current.MainPage.DisplayAlert
                     ("Delete", $"'{Item.Title}'{Environment.NewLine}Dated for {String.Format("{0:dddd, MMMM d, yyyy}", Item.Due)} will be deleted ", "Yes", "No");

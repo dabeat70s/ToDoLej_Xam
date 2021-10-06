@@ -19,7 +19,7 @@ namespace ToDo.LEJ.Repositories
         {
             await CreateConnection();
             return await connection.Table<TodoItem>().ToListAsync();
-            //return null; // Just to make it build
+            
         }
         public async Task AddItem(TodoItem item)
         {

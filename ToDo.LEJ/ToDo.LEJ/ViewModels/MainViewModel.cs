@@ -62,7 +62,7 @@ namespace ToDo.LEJ.ViewModels
             var vm = itemView.BindingContext as ItemViewModel;
             vm.PageTitle = "Edit todo item";
             vm.DeleteText = "Delete";
-            vm.ShowDelete = true;
+            vm.ShowDelete = true;           
             vm.Item = item.Item;            
             await Navigation.PushAsync(itemView);
         }
